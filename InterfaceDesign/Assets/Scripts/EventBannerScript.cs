@@ -13,14 +13,15 @@ public class EventBannerScript : MonoBehaviour
     public int atWhich;
     private float timeSwitch;
     private bool switchImage;
-    private bool isRight;
+    public bool isRight;
     private Vector3 prevPos;
-
+    private bool firstTouch;
     // Start is called before the first frame update
     void Start()
     {
         //atWhich = 0;
         timeSwitch = maxTimeSwitch;
+        firstTouch = false;
         imageSlideShow = GetComponent<Image>();
         textures = Resources.LoadAll("SlideShow", typeof(Sprite));
         foreach (var t in textures)
@@ -32,7 +33,7 @@ public class EventBannerScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timeSwitch -= Time.deltaTime;
         if (timeSwitch <= 0f)
@@ -48,7 +49,7 @@ public class EventBannerScript : MonoBehaviour
         {
             if(isRight == true)
             {
-                if (imageSlideShow.GetComponent<RectTransform>().localPosition.x < prevPos.x + Panel.GetComponent<RectTransform>().sizeDelta.x)
+                if (imageSlideShow.GetComponent<RectTransform>().localPosition.x <= prevPos.x + Panel.GetComponent<RectTransform>().sizeDelta.x)
                 {
                     imageSlideShow.GetComponent<RectTransform>().localPosition += new Vector3(Time.deltaTime * m_speed, 0f, 0f);
                
@@ -57,20 +58,24 @@ public class EventBannerScript : MonoBehaviour
                 {
                     if (textures.Length >= 3)
                     {
-                        for (int i = 0; i < 2; ++i) //For transition the moment it reaches the end and when it goes back to the front
-                        {
-                            if (atWhich >= textures.Length - 1)
+                      if (isHidden == true)
+                      {
+                            for (int i = 0; i < 2; ++i) //For transition the moment it reaches the end and when it goes back to the front
                             {
-                                atWhich = 0;
+                                if (atWhich >= textures.Length - 1)
+                                {
+                                    atWhich = 0;
 
-                            }
-                            else
-                            {
-                                atWhich += 1;
+                                }
+                                else
+                                {
+                                    atWhich += 1;
+                                }
                             }
                         }
-                       
-                        imageSlideShow.sprite = textures[atWhich] as Sprite;
+
+                            imageSlideShow.sprite = textures[atWhich] as Sprite;
+                      
                     }
                         
                     //    isHidden = true;
@@ -79,35 +84,42 @@ public class EventBannerScript : MonoBehaviour
                 }
                 else
                 {
-                  //  isHidden = false;
+                  // isHidden = false;
                     switchImage = false;
                 }
-               
-               
+
+          
             }
             else
             {
-                if (imageSlideShow.GetComponent<RectTransform>().localPosition.x > prevPos.x - Panel.GetComponent<RectTransform>().sizeDelta.x)
+                if (imageSlideShow.GetComponent<RectTransform>().localPosition.x >= prevPos.x - Panel.GetComponent<RectTransform>().sizeDelta.x)
                 {
                    imageSlideShow.GetComponent<RectTransform>().localPosition -= new Vector3(Time.deltaTime * m_speed, 0f, 0f);
          
                 }
-                else if (imageSlideShow.GetComponent<RectTransform>().localPosition.x < -Panel.GetComponent<RectTransform>().sizeDelta.x)
+                else if (imageSlideShow.GetComponent<RectTransform>().localPosition.x <= -Panel.GetComponent<RectTransform>().sizeDelta.x)
                 {
                     if (textures.Length >= 3)
                     {
-                        for (int i = 0; i < 2; ++i) //For transition the moment it reaches the end and when it goes back to the front
+                        if (isHidden == true)
                         {
-                            if (atWhich <= 0)
+                            for (int i = 0; i < 2; ++i) //For transition the moment it reaches the end and when it goes back to the front
                             {
-                                atWhich = textures.Length - 1;
-                            }
-                            else
-                            {
-                                atWhich -= 1;
-                            }
+                                if (atWhich <= 0)
+                                {
+                                    atWhich = textures.Length - 1;
+
+                                }
+                                else
+                                {
+                                    atWhich -= 1;
+                                }
+                         }
+
+                            Debug.Log(atWhich);
                         }
-                        imageSlideShow.sprite = textures[atWhich] as Sprite;
+                            imageSlideShow.sprite = textures[atWhich] as Sprite;
+                     
                     }
                    
                    // isHidden = true;
@@ -119,6 +131,7 @@ public class EventBannerScript : MonoBehaviour
                    // isHidden = false;
                     switchImage = false;
                 }
+            
             }
         }
     }
@@ -127,10 +140,31 @@ public class EventBannerScript : MonoBehaviour
     {
         if (switchImage == false)
         {
-            Debug.Log(isHidden);
+            if(firstTouch == false)
+            {
+                isRight = true;
+                firstTouch = true;
+            }
+           // Debug.Log(isHidden);
             if (isHidden)
             {
+                if (isRight == false)
+                {
+                    for (int i = 0; i < 2; ++i) //For transition the moment it reaches the end and when it goes back to the front
+                    {
+                        if (atWhich >= textures.Length - 1)
+                        {
+                            atWhich = 0;
 
+                        }
+                        else
+                        {
+                            atWhich += 1;
+                        }
+
+                    }
+                    imageSlideShow.sprite = textures[atWhich] as Sprite;
+                }
                 imageSlideShow.GetComponent<RectTransform>().localPosition = new Vector3(-Panel.GetComponent<RectTransform>().sizeDelta.x, imageSlideShow.GetComponent<RectTransform>().localPosition.y, imageSlideShow.GetComponent<RectTransform>().localPosition.z);
                 isHidden = false;
             }
@@ -147,13 +181,33 @@ public class EventBannerScript : MonoBehaviour
     {
         if (switchImage == false)
         {
-            Debug.Log(isHidden);
+            //  Debug.Log(isHidden);
+            if (firstTouch == false) //To set it up the
+            {
+                isRight = true;
+                firstTouch = true;
+            }
             if (isHidden)
             {
+                if(isRight == true)
+                {
+                    for (int i = 0; i < 2; ++i) //For transition the moment it reaches the end and when it goes back to the front
+                    {
+                        if (atWhich <= 0)
+                        {
+                            atWhich = textures.Length - 1;
+                        }
+                        else
+                        {
+                            atWhich -= 1;
+                        }
+                    }
+                    imageSlideShow.sprite = textures[atWhich] as Sprite;
+                }
                 imageSlideShow.GetComponent<RectTransform>().localPosition = new Vector3(Panel.GetComponent<RectTransform>().sizeDelta.x, imageSlideShow.GetComponent<RectTransform>().localPosition.y, imageSlideShow.GetComponent<RectTransform>().localPosition.z);
                 isHidden = false;
             }
-             else
+            else
             {
                 isHidden = true;
             }
