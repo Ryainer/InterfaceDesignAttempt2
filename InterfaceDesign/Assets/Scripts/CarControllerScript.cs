@@ -16,6 +16,8 @@ public class CarControllerScript : MonoBehaviour
     private float currentBreakForce;
     private bool isBreaking;
 
+    public GameObject outputText;
+
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
     [SerializeField] private float maxSteerAngle;
@@ -39,11 +41,12 @@ public class CarControllerScript : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        calculateSpeed();
     }
     private void GetInput()
     {
         totalHorizontalInput = LeftHorizontalInput + RightHorizontalInput;
-        verticalInput = 0.0f;
+        verticalInput = 1.0f;
     }
     private void HandleMotor()
     {
@@ -52,6 +55,13 @@ public class CarControllerScript : MonoBehaviour
         currentBreakForce = isBreaking ? breakForce : 0f;
          ApplyBreaking();
     
+    }
+    private void calculateSpeed()
+    {
+        float circumFerence = 2.0f * 3.14f * frontLeftWheelCollider.radius; // Finding circumFerence 2 Pi R
+        float speedOnKmh = ((circumFerence * frontLeftWheelCollider.rpm) / 1000) * 60; // finding kmh
+        float speedOnMph = speedOnKmh * 0.62f; // converting kmh to mph
+        outputText.GetComponent<TextMesh>().text = (speedOnMph).ToString() + "/mph";
     }
     private void HandleSteering()
     {
@@ -73,6 +83,7 @@ public class CarControllerScript : MonoBehaviour
         wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
+      
     }
     private void ApplyBreaking()
     {
