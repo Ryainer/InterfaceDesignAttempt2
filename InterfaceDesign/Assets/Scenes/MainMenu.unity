@@ -3788,6 +3788,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747698563}
   m_CullTransparentMesh: 0
+--- !u!1 &748268823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748268825}
+  - component: {fileID: 748268824}
+  m_Layer: 0
+  m_Name: TouchLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &748268824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748268823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30bfcab91d8843f4c980d80a9203319f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &748268825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748268823}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 316.00864, y: 275.73135, z: -9.108983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &754761036
 GameObject:
   m_ObjectHideFlags: 0
@@ -4400,7 +4443,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935873397}
-  m_LocalRotation: {x: 0.13557011, y: -0.60617006, z: 0.10582967, w: 0.77651703}
+  m_LocalRotation: {x: 0.1355622, y: -0.6062282, z: 0.105839804, w: 0.77647173}
   m_LocalPosition: {x: 480.36, y: 30.13, z: 302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7781,7 +7824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533222741}
-  m_LocalRotation: {x: 0.13557011, y: -0.60617006, z: 0.10582967, w: 0.77651703}
+  m_LocalRotation: {x: 0.1355622, y: -0.6062282, z: 0.105839804, w: 0.77647173}
   m_LocalPosition: {x: 480.36, y: 30.13, z: 302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7949,7 +7992,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1589052679}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 748268824}
+        m_TargetAssemblyTypeName: TouchLogicScript, Assembly-CSharp
+        m_MethodName: changeToGameScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1589052679
 MonoBehaviour:
   m_ObjectHideFlags: 0
