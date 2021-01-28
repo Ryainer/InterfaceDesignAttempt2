@@ -8,6 +8,7 @@ TagManager:
   - TopBarButton
   - PopUpButtons
   - GameControlButtons
+  - carbody
   layers:
   - Default
   - TransparentFX
