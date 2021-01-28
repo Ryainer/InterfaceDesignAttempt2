@@ -21,8 +21,20 @@ public class TouchLogicScript : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void changeToGameScene()
+    public void changeToSinglePlayerScene()
     {
         SceneManager.LoadScene(1);
+    }
+    public void changeToMultiplayerScene()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void changeToPartScene()
+    {
+        SceneManager.LoadScene(4);
+    }
+    public void changeToGameSceneScene()
+    {
+        SceneManager.LoadScene(3);
     }
 }
