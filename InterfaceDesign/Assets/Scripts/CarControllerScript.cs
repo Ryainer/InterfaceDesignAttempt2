@@ -138,6 +138,7 @@ public class CarControllerScript : MonoBehaviour
         else if(value == 1)
         {
             isTiltControl = true;
+            CalibrateAccelerometer();
         }
     }
     public void pressedDownBreak()
