@@ -17,6 +17,14 @@ public class CarControllerScript : MonoBehaviour
     private bool isBreaking;
     private bool isTiltControl = false;
     private Quaternion calibrationQuaternion;
+    Vector3 zeroAc;
+    Vector3 curAc;
+    float sensH = 10;
+    float sensV = 10;
+    float smooth = 0.5f;
+    float GetAxisH  = 0;
+    float GetAxisV = 0;
+
     public GameObject outputText;
 
     [SerializeField] private float motorForce;
@@ -35,12 +43,8 @@ public class CarControllerScript : MonoBehaviour
     // Used to calibrate the Input.acceleration
     void CalibrateAccelerometer()
     {
-        Vector3 accelerationSnapshot = Input.acceleration;
-
-        Quaternion rotateQuaternion = Quaternion.FromToRotation(
-            new Vector3(0.0f, 0.0f, -1.0f), accelerationSnapshot);
-
-        calibrationQuaternion = Quaternion.Inverse(rotateQuaternion);
+        zeroAc = Input.acceleration;
+        curAc = Vector3.zero;
     }
 
     // Start is called before the first frame update
@@ -154,10 +158,12 @@ public class CarControllerScript : MonoBehaviour
     {
         if (isTiltControl == true)
         {
-            Vector3 theAcceleration = Input.acceleration;
-            Vector3 fixedAcceleration = calibrationQuaternion * theAcceleration;
-            float moveHorizontal = Input.acceleration.normalized.x;
-            totalHorizontalInput = moveHorizontal;
+     
+            curAc = Vector3.Lerp(curAc, Input.acceleration - zeroAc, Time.deltaTime / smooth);
+            GetAxisV = Mathf.Clamp(curAc.y * sensV, -1, 1);
+            GetAxisH = Mathf.Clamp(curAc.x * sensH, -1, 1);
+            totalHorizontalInput = GetAxisH;
+            Debug.Log("TILT INPUT" + GetAxisH);
         }
 
     }
