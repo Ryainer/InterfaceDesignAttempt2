@@ -31,7 +31,7 @@ public class TouchLogicScript : MonoBehaviour
     }
     public void changeToPartScene()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(5);
     }
     public void changeToGameSceneScene()
     {
@@ -40,6 +40,6 @@ public class TouchLogicScript : MonoBehaviour
 
     public void changeToGarageScene()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(4);
     }
 }

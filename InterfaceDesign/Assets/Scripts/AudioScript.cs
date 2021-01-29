@@ -16,9 +16,14 @@ public class AudioScript : MonoBehaviour
         
     }
 
-    public void PlayBuzz()
+    public void PlaySound()
     {
         GetComponent<AudioSource>().Play();
+    }
+
+    public void StopSound()
+    {
+        GetComponent<AudioSource>().Stop();
     }
 
 }
