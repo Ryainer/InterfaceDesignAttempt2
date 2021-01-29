@@ -3391,7 +3391,7 @@ GameObject:
   - component: {fileID: 958908371}
   m_Layer: 0
   m_Name: carWheel2
-  m_TagString: Untagged
+  m_TagString: wheeltag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4031,6 +4031,7 @@ MonoBehaviour:
   wheelPart2: {fileID: 21300000, guid: 2d2badb6081921d40aca95ffb8960ba0, type: 3}
   image1: {fileID: 1124454568}
   image2: {fileID: 958908368}
+  partsPanel: {fileID: 965715946}
 --- !u!4 &1070777809
 Transform:
   m_ObjectHideFlags: 0
@@ -4137,7 +4138,7 @@ GameObject:
   - component: {fileID: 1124454571}
   m_Layer: 0
   m_Name: carWheel1
-  m_TagString: Untagged
+  m_TagString: wheeltag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6012,7 +6013,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 19.000458, y: 89.76697}
+  m_AnchoredPosition: {x: 19.000488, y: 89.76697}
   m_SizeDelta: {x: -107.99988, y: -204}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1668768451
@@ -6579,7 +6580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4107931768422804, guid: 5d2d294a55c8dad4f863791b2ec6aa9e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 92.11
+      value: 92.62
       objectReference: {fileID: 0}
     - target: {fileID: 4107931768422804, guid: 5d2d294a55c8dad4f863791b2ec6aa9e, type: 3}
       propertyPath: m_LocalRotation.x
