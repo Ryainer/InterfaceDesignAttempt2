@@ -9,6 +9,7 @@ TagManager:
   - PopUpButtons
   - GameControlButtons
   - carbody
+  - wheeltag
   layers:
   - Default
   - TransparentFX
