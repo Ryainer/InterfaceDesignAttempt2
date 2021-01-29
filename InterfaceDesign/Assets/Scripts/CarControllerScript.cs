@@ -51,6 +51,7 @@ public class CarControllerScript : MonoBehaviour
     void Start()
     {
         CalibrateAccelerometer();
+        Input.gyro.enabled = true;
     }
     private void FixedUpdate()
     {
@@ -62,7 +63,10 @@ public class CarControllerScript : MonoBehaviour
     }
     private void GetInput()
     {
-        totalHorizontalInput = LeftHorizontalInput + RightHorizontalInput;
+        if (isTiltControl == false)
+        {
+            totalHorizontalInput = LeftHorizontalInput + RightHorizontalInput;
+        }
         verticalInput = 1.0f;
     }
     private void HandleMotor()
