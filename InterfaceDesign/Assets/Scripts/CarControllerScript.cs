@@ -15,7 +15,8 @@ public class CarControllerScript : MonoBehaviour
     private float currentSteerAngle;
     private float currentBreakForce;
     private bool isBreaking;
-
+    private bool isTiltControl = false;
+    private Quaternion calibrationQuaternion;
     public GameObject outputText;
 
     [SerializeField] private float motorForce;
@@ -30,10 +31,22 @@ public class CarControllerScript : MonoBehaviour
     [SerializeField] private Transform frontRightWheelTransform;
     [SerializeField] private Transform backLeftWheelTransform;
     [SerializeField] private Transform backRightWheelTransform;
+
+    // Used to calibrate the Input.acceleration
+    void CalibrateAccelerometer()
+    {
+        Vector3 accelerationSnapshot = Input.acceleration;
+
+        Quaternion rotateQuaternion = Quaternion.FromToRotation(
+            new Vector3(0.0f, 0.0f, -1.0f), accelerationSnapshot);
+
+        calibrationQuaternion = Quaternion.Inverse(rotateQuaternion);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        CalibrateAccelerometer();
     }
     private void FixedUpdate()
     {
@@ -97,20 +110,35 @@ public class CarControllerScript : MonoBehaviour
 
     public void pressedDownLeft()
     {
+        if(isTiltControl == false)
         LeftHorizontalInput = -1.0f;
     }
     public void releasedLeft()
     {
-        LeftHorizontalInput = 0.0f;
+        if (isTiltControl == false)
+            LeftHorizontalInput = 0.0f;
     }
 
     public void pressedDownRight()
     {
-        LeftHorizontalInput = 1.0f;
+        if (isTiltControl == false)
+            RightHorizontalInput = 1.0f;
     }
     public void releasedRight()
     {
-        LeftHorizontalInput = -0.0f;
+        if (isTiltControl == false)
+            RightHorizontalInput = -0.0f;
+    }
+    public void SetTiltControl(int value)
+    {
+        if(value == 0)
+        {
+            isTiltControl = false;
+        }
+        else if(value == 1)
+        {
+            isTiltControl = true;
+        }
     }
     public void pressedDownBreak()
     {
@@ -123,6 +151,13 @@ public class CarControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isTiltControl == true)
+        {
+            Vector3 theAcceleration = Input.acceleration;
+            Vector3 fixedAcceleration = calibrationQuaternion * theAcceleration;
+            float moveHorizontal = Input.acceleration.normalized.x;
+            totalHorizontalInput = moveHorizontal;
+        }
+
     }
 }
