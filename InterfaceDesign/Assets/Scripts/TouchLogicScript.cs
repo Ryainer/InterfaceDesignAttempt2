@@ -37,4 +37,9 @@ public class TouchLogicScript : MonoBehaviour
     {
         SceneManager.LoadScene(3);
     }
+
+    public void changeToGarageScene()
+    {
+        SceneManager.LoadScene(5);
+    }
 }
